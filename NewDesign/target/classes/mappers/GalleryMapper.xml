@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.scit.www.service.GalleryMapper">
+ 	<!-- 작성 -->
+ 	
+ 	<insert id="writeGallery" parameterType="gal">
+ 	insert into gallery(galleryNum, title, originalfile, savedfile)
+	values(gal_Seq.nextval, #{title}
+	 <if test="originalfile != null">,#{originalfile} </if>
+	  <if test="originalfile == null">,''</if>
+	  <if test = "savedfile != null">,#{savedfile}</if>
+	  <if test = "savedfile == null">,''</if>
+	 )
+ 	</insert>
+	
+	
+	<!-- 삭제 -->
+	<delete id="deleteGallery">
+	delete gallery
+	where galleryNum = #{galleryNum}
+	</delete>
+	
+	
+	<!-- 수정 -->
+	<update id="updateGallery" parameterType="gal">
+	update gallery
+	set title = #{title},  
+  		 originalfile = <if test="originalfile != null">#{originalfile}, </if>
+    			<if test="originalfile == null">'', </if>
+    	
+   		savedfile = <if test="savedfile != null">#{savedfile}</if>
+    		<if test="savedfile == null">''</if>
+	where galleryNum = #{galleryNum}
+	</update>
+  
+  
+  
+  	<!-- 갤러리 전체 -->
+  	<select id="galleryList" resultType="gal">
+  	select *
+  	from gallery
+ 	order by galleryNum desc
+  	</select>
+  	
+  	<!-- 갤러리 1개 -->
+  	<select id="readGallery" resultType="gal">
+  	select *
+  	from gallery
+  	where galleryNum = #{galleryNum}
+  	</select>
+  	
+  	<!-- 전체 갤러리의 수 -->
+  	<select id="getGalleryCount" resultType="int">
+  	select count(*)
+  	from gallery
+
+  	</select>
+  
+  </mapper>
