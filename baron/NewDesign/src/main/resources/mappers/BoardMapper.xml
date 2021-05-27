@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.scit.www.service.BoardMapper">
+  
+  <insert id="writeBoard" parameterType="board">
+  
+  insert into Board(boardNum, id, title, content, originalfile, savedfile)
+  values(bod_Seq.nextval, #{id}, #{title}, #{content}
+  
+  <if test="originalfile != null">,#{originalfile} </if>
+  <if test="originalfile == null">,''</if>
+  <if test = "savedfile != null">,#{savedfile}</if>
+  <if test = "savedfile == null">,''</if>
+  )
+  </insert>
+  
+  <delete id="deleteBoard">
+  
+  delete board
+  where boardNum = #{boardNum}
+  
+  </delete>
+  
+  
+  <update id="updateBoard" parameterType="map">
+  
+   update board
+   set title = #{title}, content = #{content}, 
+    	
+   originalfile = <if test="originalfile != null">#{originalfile}, </if>
+    			<if test="originalfile == null">'', </if>
+    	
+   savedfile = <if test="savedfile != null">#{savedfile}</if>
+    		<if test="savedfile == null">''</if>
+    	
+  where boardNum = #{boardNum} and id = #{id}
+  
+
+  </update>
+  
+  <!-- 검색 -->
+   <select id="searchBoard" parameterType="map" resultType="board">
+   	select * 
+   	from board
+   	where 
+   	<if test="content == null and id == null">title like '%' || #{title} || '%'</if>
+   	<if test="id == null and title == null">content like '%' || #{content} || '%'</if>
+   	<if test="content == null and title == null">id like '%' || #{id} || '%'</if>  	
+    order by boardnum desc
+   </select>
+  
+  
+  <select id="boardList" resultType="board">
+  
+  select boardNum, id, title, to_char(writeDate, 'yyyy/mm/dd HH24:MI') as writeDate, hits 
+  from board
+  order by boardNum desc
+  
+  </select>
+  
+  <select id="readBoard" resultType="board">
+  
+  select *
+  from board
+  where boardNum = #{boardNum}
+  order by boardNum desc
+  
+  </select>
+  
+ <update id="hitsBoard">
+ update board
+ set hits = hits + 1
+ where boardNum = #{boardNum}
+ 
+ </update>
+  
+    <!-- 전체 게시글 수 -->
+	<select id="getBoardCount" resultType="int">
+	select count(*) 
+	from board	
+	</select>   
+	
+	
+	
+	
+	
+	
+	
+	<!-- 덧글 SQL -->
+	
+	<insert id="insertReply" parameterType="reply">
+	insert into reply(replyNum, boardNum, id, content)
+	values(reply_seq.nextval, #{boardNum}, #{id}, #{content})
+	</insert>
+
+	<select id="replyAll" resultType="reply">
+	select replyNum, BoardNum, id, content, to_char(writeDate, 'yyyy/mm/dd HH24:MI') as writeDate
+	from reply 
+	where boardNum = #{boardNum}
+	order by replyNum desc
+	
+	</select>
+	<select id="getReply" resultType="reply">
+	select * from reply where replyNum = #{replyNum}
+	</select>
+	
+	<delete id="deleteReply">
+	delete from reply
+	where replyNum = #{replyNum}
+	</delete>
+	
+	<update id="updateReply">
+	update reply
+	set content = #{content}
+	where replyNum = #{replyNum}
+	</update>
+	
+	<select id="getReplyCount"  resultType="integer">
+	select count(*)
+	from reply
+	where boardNum = #{boardNum}
+	</select>
+
+	
+	
+  </mapper>
