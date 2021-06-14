@@ -21,6 +21,7 @@ public class MemberServiceTest {
 	@BeforeEach
 	public void beforeEach() {
 		repo = new InMemoryMemberRepository();
+		// 서비스를 이용하기 위해선 리포지토리에 의존하기 때문에 처음부터 생성자에 넣어줌
 		ms = new MemberService(repo);
 	}
 	

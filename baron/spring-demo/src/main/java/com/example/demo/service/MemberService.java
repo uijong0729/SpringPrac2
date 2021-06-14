@@ -4,13 +4,22 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.demo.domain.Member;
 import com.example.demo.repository.InMemoryMemberRepository;
 import com.example.demo.repository.MemberRepository;
 
+/**
+ * 스프링 컨테이너 안에 Service 인스턴스를 생성해서 스프링이 관리한다.
+ *	@Service, @Controller, @Repository 어노테이션은 @Component의 일종 -> 컴포넌트 스캔
+ */
+// @Service
 public class MemberService {
 	private final MemberRepository repo; 
 	
+	@Autowired
 	public MemberService(MemberRepository repo) {
 		this.repo = repo;
 		
