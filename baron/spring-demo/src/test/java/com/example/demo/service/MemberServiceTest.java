@@ -8,13 +8,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.domain.Member;
 import com.example.demo.repository.InMemoryMemberRepository;
 
 public class MemberServiceTest {
 	
-	// 테스트는 과감하게 한글로 바꾸셔도 됩니다. 
+	// 테스트는 과감하게 한글로 바꾸셔도 됩니다.
 	InMemoryMemberRepository repo;
 	MemberService ms;
 	

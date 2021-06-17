@@ -39,6 +39,7 @@ public class MemberService {
 		});
 		
 		repo.save(member);
+		System.out.println("join member : " + member.getName());
 		return member.getId();
 	}
 	
