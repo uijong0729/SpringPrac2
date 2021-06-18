@@ -1,7 +1,23 @@
 package com.example.demo.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/**
+ * 인터페이스 : JPA
+ * 구현체 : Hibernate
+ *
+ */
+@Entity
 public class Member {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //DB가 알아서 생성해주는 strategy
 	private Long id; 
+	
 	private String name;
 	
 	public Long getId() {

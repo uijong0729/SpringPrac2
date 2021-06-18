@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.Member;
 import com.example.demo.repository.InMemoryMemberRepository;
@@ -16,6 +17,8 @@ import com.example.demo.repository.MemberRepository;
  *	@Service, @Controller, @Repository 어노테이션은 @Component의 일종 -> 컴포넌트 스캔
  */
 // @Service
+// JPA를 사용할떄는 서비스에 트랜잭션이 있어야 함
+@Transactional
 public class MemberService {
 	private final MemberRepository repo; 
 	

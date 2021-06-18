@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.demo.repository.InMemoryMemberRepository;
 import com.example.demo.repository.JdbcTemplateRepository;
+import com.example.demo.repository.JpaMemberRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.MemberService;
 
@@ -37,11 +39,12 @@ import com.example.demo.service.MemberService;
 @Configuration
 public class SpringConfig {
 	
-	private DataSource ds;
+	// private DataSource ds;
+	private EntityManager em;
 	
 	@Autowired
-	public SpringConfig(DataSource ds) {
-		this.ds = ds;		
+	public SpringConfig(EntityManager em) {
+		this.em = em;		
 	}
 	
 	@Bean
@@ -54,6 +57,7 @@ public class SpringConfig {
 		// 개방 폐쇄 원칙 : 확장에는 열려있고 변경에는 닫혀있다.
 		// 스프링의  DI를 사용하면 기존코드를 전혀 손대지 않고 설정만으로 구현 클래스를 변경할 수 있다.
 		//return new InMemoryMemberRepository();
-		return new JdbcTemplateRepository(ds);
+		// return new JdbcTemplateRepository(ds);
+		return new JpaMemberRepository(em);
 	}
 }
