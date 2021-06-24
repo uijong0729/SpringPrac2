@@ -2,11 +2,11 @@ package com.example.demo.repository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.demo.entity.Member;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-
-import com.example.demo.domain.Member;
 
 // 순서 상관없이 모든 메소드가 실행되기 때문에 테스트간 의존관계가 없어야 한다.
 class InMemoryRepositoryTest {

@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 
 public class JpaMemberRepository implements MemberRepository{
 	

@@ -15,14 +15,19 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 	// jdbc template
 	// implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	// jpa (jdbc를 포함하는 의존성)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//h2-console
 	runtimeOnly 'com.h2database:h2'
-
+	
+	// 스프링 시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {

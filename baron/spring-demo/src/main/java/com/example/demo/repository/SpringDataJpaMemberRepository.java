@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 
 // JpaRepository 상속으로 스프링 빈 자동등록 
 /**

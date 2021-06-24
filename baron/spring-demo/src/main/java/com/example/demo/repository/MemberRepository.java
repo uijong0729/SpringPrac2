@@ -3,7 +3,7 @@ package com.example.demo.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 
 public interface MemberRepository {
 	Member save(Member member);

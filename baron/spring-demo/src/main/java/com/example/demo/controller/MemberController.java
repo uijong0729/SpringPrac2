@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 import com.example.demo.service.MemberService;
 
 /**

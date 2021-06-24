@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.domain.Member;
+import com.example.demo.entity.Member;
 import com.example.demo.repository.InMemoryMemberRepository;
 
 public class MemberServiceTest {
