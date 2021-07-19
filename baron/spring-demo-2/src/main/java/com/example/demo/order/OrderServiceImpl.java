@@ -2,13 +2,11 @@ package com.example.demo.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.discount.DiscountPolicy;
-import com.example.demo.discount.FixDiscountPolicy;
-import com.example.demo.discount.RateDiscountPolicy;
 import com.example.demo.member.MemberRepository;
-import com.example.demo.member.MemoryMemberRepository;
 
 /**
  * @author kroch
@@ -16,7 +14,6 @@ import com.example.demo.member.MemoryMemberRepository;
  *
  */
 @Component
-@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 	
 	/**
@@ -34,8 +31,21 @@ public class OrderServiceImpl implements OrderService{
 	 * 	new RateDiscountPolicy() 부분을 지운다
 	 *  -> 구현객체를 누군가 대신 생성하고 주입해주어야 한다.
 	 */
-	private final DiscountPolicy discountPolicy;
+	private final DiscountPolicy rateDiscountPolicy;
 	private final MemberRepository memberRepo;
+
+	/**+
+	 * /** +를 입력하고 메소드 위에서 Enter를 누르면 Javadoc 스텁이 작성됩니다.
+	 *
+	 * @param rateDiscountPolicy
+	 * @param memberRepo
+	 */
+	@Autowired
+	public OrderServiceImpl(DiscountPolicy rateDiscountPolicy,
+							MemberRepository memberRepo) {
+		this.rateDiscountPolicy = rateDiscountPolicy;
+		this.memberRepo = memberRepo;
+	}
 
 	@Override
 	public Order createOrder(Long memberId, String itemName, int itemPrice) {
@@ -43,13 +53,13 @@ public class OrderServiceImpl implements OrderService{
 					memberId, 
 					itemName, 
 					itemPrice, 
-					discountPolicy.discount(memberRepo.findById(memberId), itemPrice)
+					rateDiscountPolicy.discount(memberRepo.findById(memberId), itemPrice)
 				);
 	}
 
 	/**
 	 * 싱글톤인지 확인하는 테스트용 메소드
-	 * 
+	 *
 	 * @return
 	 */
 	public MemberRepository getMemberRepo() {

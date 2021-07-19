@@ -11,7 +11,7 @@
 	
 	<bean id="orderService" class="com.example.demo.order.OrderServiceImpl">
 		<constructor-arg name="memberRepo" ref="memberRepository"/>
-		<constructor-arg name="discountPolicy" ref="discountPolicy"/>
+		<constructor-arg name="rateDiscountPolicy" ref="discountPolicy"/>
 	</bean>
 	
 	<bean id="discountPolicy" class="com.example.demo.discount.RateDiscountPolicy"/>
