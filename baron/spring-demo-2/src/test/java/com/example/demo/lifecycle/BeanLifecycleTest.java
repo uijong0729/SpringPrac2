@@ -19,6 +19,7 @@ public class BeanLifecycleTest {
 
     @Configuration
     static class LifeCycleConfig{
+
         @Bean
         public NetworkClient networkClient(){
             NetworkClient networkClient = new NetworkClient();
