@@ -26,6 +26,8 @@ dependencies {
 
 	// Provider
 	implementation 'javax.inject:javax.inject:1'
+	// 웹 환경
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 test {

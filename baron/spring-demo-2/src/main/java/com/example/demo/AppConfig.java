@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.demo.discount.DiscountPolicy;
@@ -12,6 +13,7 @@ import com.example.demo.member.MemberServiceImpl;
 import com.example.demo.member.MemoryMemberRepository;
 import com.example.demo.order.OrderService;
 import com.example.demo.order.OrderServiceImpl;
+import org.springframework.context.annotation.FilterType;
 
 /**
  * 생성자 주입방식
@@ -22,7 +24,7 @@ import com.example.demo.order.OrderServiceImpl;
  * @author kroch
  * 
  */
-@Configuration
+// @Configuration
 public class AppConfig {
 	
 	/**
