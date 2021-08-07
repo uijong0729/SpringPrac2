@@ -19,8 +19,18 @@ spring:
           predicates:
             # http://localhost:8081/ecom-first-service/**
             - Path=/ecom-first-service/**
+          filters:
+#            - AddRequestHeader=[Key], [Value]
+#            - AddRequestHeader=first-request, first-request-header2
+#            - AddResponseHeader=first-response, first-response-header2
+            - CustomFilter
         - id: ecom-second-service
           uri: http://localhost:8082
           predicates:
             # http://localhost:8081/ecom-second-service/**
             - Path=/ecom-second-service/**
+          filters:
+#            - AddRequestHeader=[Key], [Value]
+#            - AddRequestHeader=second-request, second-request-header2
+#            - AddResponseHeader=second-response, second-response-header2
+            - CustomFilter
