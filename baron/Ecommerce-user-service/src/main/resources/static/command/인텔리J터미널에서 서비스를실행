@@ -1,0 +1,3 @@
+D:
+cd D:\code\spring\baron\Ecommerce-user-service
+mvn spring-boot:run -Dspring-boot.run.jvmArguments='-Dserver.port=9003'
