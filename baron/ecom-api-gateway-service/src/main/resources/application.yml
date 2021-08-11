@@ -3,8 +3,8 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -15,7 +15,7 @@ spring:
     gateway:
       routes:
         - id: ecom-first-service
-          uri: http://localhost:8081
+          uri: lb://ECOM-FIRST-SERVICE
           predicates:
             # http://localhost:8081/ecom-first-service/**
             - Path=/ecom-first-service/**
@@ -25,7 +25,7 @@ spring:
 #            - AddResponseHeader=first-response, first-response-header2
             - CustomFilter
         - id: ecom-second-service
-          uri: http://localhost:8082
+          uri: lb://ECOM-SECOND-SERVICE
           predicates:
             # http://localhost:8081/ecom-second-service/**
             - Path=/ecom-second-service/**
@@ -33,4 +33,16 @@ spring:
 #            - AddRequestHeader=[Key], [Value]
 #            - AddRequestHeader=second-request, second-request-header2
 #            - AddResponseHeader=second-response, second-response-header2
-            - CustomFilter
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, Logging Filter
+                preLogger: true
+                postLogger: true
+      # Test : http://localhost:8000/ecom-second-service/check
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true

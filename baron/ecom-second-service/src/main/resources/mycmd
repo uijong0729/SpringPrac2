@@ -1,0 +1,4 @@
+mvn clean compile package
+java -jar -Dserver.port=9092 ./target/ecom-second-service-0.0.1-SNAPSHOT.jar
+
+mvn spring-boot:run
