@@ -17,3 +17,7 @@ eureka:
     # 유레카 서버 위치
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+# 프로퍼티 임의 값
+greeting:
+  msg: Welcome to Simple E-commerce
