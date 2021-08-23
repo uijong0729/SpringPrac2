@@ -18,6 +18,10 @@ spring:
           uri: lb://USER-SERVICE # 유레카에 등록된 이름을 기재
           predicates:
             - Path=/user-service/** # 해당 URI가 포함되면 user-service로 포워딩
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-service/**
         - id: ecom-first-service
           uri: lb://ECOM-FIRST-SERVICE
           predicates:
