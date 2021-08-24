@@ -83,6 +83,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    /**
+     * {userId} : Path Variable : RESTful 방식에서 URI에 정보를 담는 방법
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/users/{userId}")
     public ResponseEntity<ResponseUser> getUser(@PathVariable("userId") String userId) {
         UserDto user = userService.findUserByUserId(userId);

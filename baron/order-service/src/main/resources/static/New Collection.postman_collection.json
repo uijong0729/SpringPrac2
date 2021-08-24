@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "a19ea020-78b5-4196-a6a8-780b82545627",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUsers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"uijong0729@naver.com\",\r\n  \"name\":\"my_name\",\r\n  \"pwd\":\"999988885\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/users",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\":\"catalog-001\",\r\n  \"qty\":3,\r\n  \"unitPrice\":\"1500\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/order-service/d7448a98-0d54-43a7-84c8-4913e5b9e324/orders",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"order-service",
+						"d7448a98-0d54-43a7-84c8-4913e5b9e324",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/users/141388ff-2485-4fa0-829b-dabf5735fad5",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users",
+						"141388ff-2485-4fa0-829b-dabf5735fad5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllCatalogs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/catalog-service/catalogs",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"catalog-service",
+						"catalogs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
