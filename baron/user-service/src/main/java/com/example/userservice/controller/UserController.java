@@ -6,19 +6,16 @@ import com.example.userservice.service.UserService;
 import com.example.userservice.vo.Greeting;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
-import com.netflix.discovery.converters.Auto;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,18 +23,20 @@ import java.util.List;
  *  http://desktop-c999iqc:8000/user-service/health_check
  */
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
     private Environment env;
     private Greeting greeting;
     private UserService userService;
+    private ModelMapper mapper;
 
     @Autowired
-    public UserController(Environment env, Greeting greeting, UserService userService) {
+    public UserController(Environment env, Greeting greeting, UserService userService, ModelMapper mapper) {
         this.env = env;
         this.greeting = greeting;
         this.userService = userService;
+        this.mapper = mapper;
     }
 
     @GetMapping("/health_check")
@@ -47,9 +46,10 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
-    public String welcome() {
+    public String welcome(HttpServletRequest request) {
         // application.yml 파일의 설정정보를 가져 옴
         // return env.getProperty("greeting.msg");
+        log.debug(request.getRemoteAddr());
         return greeting.getMsg();
     }
 
@@ -61,8 +61,6 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser user) {
         // dto로 바꾸기
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         UserDto userDto = mapper.map(user, UserDto.class);
         userService.createUser(userDto);
 
@@ -94,5 +92,20 @@ public class UserController {
         UserDto user = userService.findUserByUserId(userId);
         ResponseUser responseUser = new ModelMapper().map(user, ResponseUser.class);
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<ResponseUser> deleteUser(@PathVariable("userId") String userId) {
+        Boolean result = userService.deleteUser(userId);
+        if (result) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PutMapping("/users")
+    public ResponseEntity<ResponseUser> updateUser(@RequestBody RequestUser user) {
+        UserDto dto = userService.reviseUser(mapper.map(user, UserDto.class));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mapper.map(dto, ResponseUser.class));
     }
 }

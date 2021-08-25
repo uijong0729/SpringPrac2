@@ -14,10 +14,39 @@ spring:
   cloud:
     gateway:
       routes:
+#        - id: user-service
+#          uri: lb://USER-SERVICE # 유레카에 등록된 이름을 기재
+#          predicates:
+#            - Path=/user-service/** # 해당 URI가 포함되면 user-service로 포워딩
+        ##### 로그인
         - id: user-service
-          uri: lb://USER-SERVICE # 유레카에 등록된 이름을 기재
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/** # 해당 URI가 포함되면 user-service로 포워딩
+            - Path=/user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            # 기존의 @RequestMapping("/user-service") 을 @RequestMapping("/") 로 쓰기위한 설정
+            # /user-service/** 로 들어오는 URL은 /**로 받는다. (URL액세스는 그대로 /user-service/** )
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        ##### 회원가입
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        ##### 기타 GET 메소드로 조회하는 것들
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
