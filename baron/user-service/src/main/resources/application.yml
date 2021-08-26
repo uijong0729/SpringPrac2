@@ -33,3 +33,8 @@ eureka:
 # 프로퍼티 임의 값
 greeting:
   msg: Welcome to Simple E-commerce
+
+token:
+  # 1일 = 86,400,000 ms
+  expiration_time: 86400000
+  secret: user_token

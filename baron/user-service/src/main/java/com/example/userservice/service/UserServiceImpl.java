@@ -94,6 +94,19 @@ public class UserServiceImpl implements UserService{
         return userDto;
     }
 
+    @Override
+    public UserDto getUserDetailsByEmail(String email) {
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(email);
+        UserDto userDto;
+        if (optionalUserEntity.isPresent()) {
+            UserEntity userEntity = optionalUserEntity.get();
+            userDto = mapper.map(userEntity, UserDto.class);
+            return userDto;
+        }else {
+            throw new UsernameNotFoundException(email);
+        }
+    }
+
     /**
      * ID(email)와 PASSWORD 입력 시 로그인처리되는 부분
      *
