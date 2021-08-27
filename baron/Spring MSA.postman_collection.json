@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "a19ea020-78b5-4196-a6a8-780b82545627",
+		"name": "Spring MSA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "welcome",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYTBmODNlYy0xYjk5LTQ3MjMtYWE4My1hYTc2YmRiNWE3OGMiLCJleHAiOjE2MzAxNDU3MjV9.P4nkIVwRmFcilCH6rk0Hnk3d7B8KvH_d4aZL5pmwwUI-QD611STnuTHvI66GT1TH2Hc06w3gmwxrmJO29hjGdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/welcome",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"welcome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health_check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/health_check",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"health_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/users",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"uijong0729@naver.com\",\r\n  \"password\":\"99999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/login",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUsers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"uijong0729@naver.com\",\r\n  \"name\":\"my_name\",\r\n  \"pwd\":\"99999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/users",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\":\"catalog-001\",\r\n  \"qty\":3,\r\n  \"unitPrice\":\"1500\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/order-service/d7448a98-0d54-43a7-84c8-4913e5b9e324/orders",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"order-service",
+						"d7448a98-0d54-43a7-84c8-4913e5b9e324",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOrderByUserId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/order-service/d7448a98-0d54-43a7-84c8-4913e5b9e324/orders",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"order-service",
+						"d7448a98-0d54-43a7-84c8-4913e5b9e324",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindUserById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/users/d7448a98-0d54-43a7-84c8-4913e5b9e324",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"users",
+						"d7448a98-0d54-43a7-84c8-4913e5b9e324"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllCatalogs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/catalog-service/catalogs",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"catalog-service",
+						"catalogs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
