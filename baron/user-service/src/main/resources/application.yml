@@ -34,7 +34,7 @@ eureka:
 greeting:
   msg: Welcome to Simple E-commerce
 
-token:
-  # 1일 = 86,400,000 ms
-  expiration_time: 86400000
-  secret: user_token
+#token:
+#  # 1일 = 86,400,000 ms
+#  expiration_time: 86400000
+#  secret: user_token
