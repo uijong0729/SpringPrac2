@@ -34,7 +34,9 @@ eureka:
 greeting:
   msg: Welcome to Simple E-commerce
 
-#token:
-#  # 1일 = 86,400,000 ms
-#  expiration_time: 86400000
-#  secret: user_token
+# refer : https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, info

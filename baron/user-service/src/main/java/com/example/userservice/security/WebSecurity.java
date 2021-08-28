@@ -44,6 +44,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         System.out.println("apply configure");
         http.csrf().disable();
 //        http.authorizeRequests().antMatchers("/users/**").permitAll();
+
+        // actuator는 권한없이 통과
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
+
         // IP는 ping -4 [컴퓨터 이름] 으로 조사
         http.authorizeRequests().antMatchers("/**")
                 .access("hasIpAddress('192.168.11.6') or hasIpAddress('127.0.0.1') or hasIpAddress('fe80::bc7e:cbcb:8fe6:50d2%8')")
