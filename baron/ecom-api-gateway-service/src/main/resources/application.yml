@@ -1,3 +1,7 @@
+# 설정파일 우선순위
+# 1. application.yml
+# 2. [임의의 애플리케이션 이름].yml
+# 3. [임의의 애플리케이션 이름]-[임의의 profile 이름].yml
 server:
   port: 8000
 
@@ -48,6 +52,15 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+        #### user-service actuator
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
           predicates:
@@ -89,5 +102,11 @@ spring:
             preLogger: true
             postLogger: true
 
-token:
-  secret: user_token
+#token:
+#  secret: user_token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
