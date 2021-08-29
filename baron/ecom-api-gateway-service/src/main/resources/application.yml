@@ -43,6 +43,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         ##### 기타 GET 메소드로 조회하는 것들 => 권한체크 필요
+        ####  기재 순서대로 적용되므로 이 설정을 user-service의 맨 밑에 둠
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -53,6 +54,7 @@ spring:
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
         #### user-service actuator
+        # /user-service/actuator/refresh를 호출하면 서버의 설정정보가 재구성된다.
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
