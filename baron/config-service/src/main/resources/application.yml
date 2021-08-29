@@ -8,4 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: file:///D:/code/spring
+#          uri: file:///D:/code/spring
+          # 설정 파일을 원격 서버에 업로드 
+          uri: https://github.com/uijong0729/SpringPrac2
+          # username:
+          # password:
