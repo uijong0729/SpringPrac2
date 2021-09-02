@@ -1,0 +1,4 @@
+# spring-cloud-starter-bootstrap 의존성을 추가하면 bootstrap.yml을 설정파일로 사용할 수 있다.
+# bootstrap.yml은 application.yml보다 우선되어 적용된다.
+encrypt:
+  key: abcdefghijklmnopqrstuvexyz1234567890
