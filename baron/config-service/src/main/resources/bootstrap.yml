@@ -3,4 +3,9 @@
 # http://desktop-c999iqc:8888/encrypt의 Body에 적당히 넣고 Post로 Send하면 암호화된 Response가 돌아온다.
 # http://desktop-c999iqc:8888/decrypt의 Body에 암호화된 문장을 넣고 Post로 Send하면 복호화된 Response가 돌아온다.
 encrypt:
-  key: abcdefghijklmnopqrstuvexyz1234567890
+  # 암호화 키 (대칭키) : 암호화와 복호화 동일하게 이 키가 쓰인다. 
+#  key: abcdefghijklmnopqrstuvexyz1234567890
+  # 암호화 키 (비대칭키) : 암호화와 복호화 키가 다르게 쓰인다. (비밀키 지정)
+  key-store:    location: file:///D:/code/spring/apiEncryptionKey.jks
+    password: 1q2w3e
+    alias: apiEncryptionKey

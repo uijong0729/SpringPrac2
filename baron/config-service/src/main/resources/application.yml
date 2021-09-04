@@ -11,8 +11,9 @@ spring:
       server:
         native:
           search-locations: file:///D:/code/spring
-        git:
-          uri: file:///D:/code/spring
+# 설정 파일을 git의 커밋 파일로 관리 
+#        git:
+#          uri: file:///D:/code/spring
           # 설정 파일을 원격 서버에 업로드
           # uri: https://github.com/uijong0729/SpringPrac2
           # username:

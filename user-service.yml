@@ -4,11 +4,11 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     # {cipher}이 붙으면 암호화 된 글자임을 명시하는 말
-    password: '{cipher}631f068f9614bf7fd3aef423d21d7ef2590aef3049ee7dfa59061499260c8558'
+    password: '{cipher}AQA/YQdycGBpLx26xiP3PVnqqUjt8RvRoPjxKjU9ML94e+NFiEGJ/3ElZkWeCh6rKCOD7eXuOltZeaa1655XMaagh2rUTetfRn/CXIpKpZfn2g0l+kXBhSIO8rXLTTwX58JQubQE8O0iIVRevuYaI4lU3V4h36dA2Lz4Z6BqCax8UHq46CNZoLR2YhgvigA/hvT9vwYMVitf0MfVqcFmuno7G5JoEr5+OrT/FnXt9AKaOEwyiEA0sz2eWWf8gKer+MreD+ACAcwA9tSQ2aY/UU6tyoNdcuduURd4D69sapITHDVur+Q+Naj8RCbSjhrOY1bIB8VRJzQpxhYbtkd0NGVtOoHqBovQQVn9i531Ut7usw2QhgwF/slwxcD4AsOpPMQ='
 
 token:
   expiration_time: 86400000
-  secret: user_token
+  secret: '{cipher}AQA8d6qJLbiK7zPPPhzDbyJ1XT6ht/GPy2Tsw12ngKyqUb6kqYX46pBOW5hT8S5YKmlJfvyTUlTAlq168nsb64Z2RH5udwoO3Ulsl/6xRiNlZrHfVYbhENspP3UQHqwxD2kUbeki9e/GfBzlo3Ecsbf8becVepGvtabKwazyfv5NhCifpPtM3BXz62z06jn05qeqCm8QV5R4Xd+5mJfGFt5WnxSl/jWKJ618z4Sy2pRqEtdSGYcsl7MLd+t6AaXHtCM6XzNGO4uDuwW5L4P5QzbGqw4xSlXYkFwceqMqUPS5F/BqlWC31viqEYMx1bEZ1ew7wF0tt6C15gWq543JShnxHrsVvPvolBnSQ8r35sA4OuKUhJ6I5umjcH8YWINigEY='
 
 gateway:
   ip: 127.0.0.1
