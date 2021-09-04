@@ -12,11 +12,12 @@ spring:
         web-allow-others: true
       # http://[Server]/h2-console/
       path: /h2-console
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
+### Spring-Cloud-Config로 옮김
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
 
 eureka:
   instance:

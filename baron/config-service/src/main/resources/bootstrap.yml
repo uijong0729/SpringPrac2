@@ -1,4 +1,6 @@
 # spring-cloud-starter-bootstrap 의존성을 추가하면 bootstrap.yml을 설정파일로 사용할 수 있다.
 # bootstrap.yml은 application.yml보다 우선되어 적용된다.
+# http://desktop-c999iqc:8888/encrypt의 Body에 적당히 넣고 Post로 Send하면 암호화된 Response가 돌아온다.
+# http://desktop-c999iqc:8888/decrypt의 Body에 암호화된 문장을 넣고 Post로 Send하면 복호화된 Response가 돌아온다.
 encrypt:
   key: abcdefghijklmnopqrstuvexyz1234567890
