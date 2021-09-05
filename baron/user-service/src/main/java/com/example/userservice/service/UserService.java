@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     UserDto createUser(UserDto userDto);
-    UserDto findUserByUserId(String userId);
+    UserDto getUserByUserId(String userId);
     Iterable<UserEntity> findAllUser();
     Boolean deleteUser(String userId);
     UserDto reviseUser(UserDto userDto);

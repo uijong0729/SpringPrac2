@@ -1,20 +1,28 @@
 package com.example.userservice.service;
 
+import com.example.userservice.client.OrderServiceClient;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,17 +32,30 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private ModelMapper mapper;
+    
+    // 서비스 간 통신을 위해
+    private Environment env;
+    private RestTemplate restTemplate;
+    private OrderServiceClient orderServiceClient;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, ModelMapper mapper) {
+    public UserServiceImpl(UserRepository userRepository, 
+    		BCryptPasswordEncoder passwordEncoder, 
+    		ModelMapper mapper,
+    		Environment env,
+    		RestTemplate restTemplate) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
+        this.env = env;
+        this.restTemplate = restTemplate;
+        this.orderServiceClient = orderServiceClient;
     }
 
     @Override
@@ -52,22 +73,37 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto findUserByUserId(String userId) {
+    public UserDto getUserByUserId(String userId) {
         Optional<UserEntity> userEntity = userRepository.findByUserId(userId);
         UserDto userDto;
 
         if(userEntity.isPresent()){
             userDto = mapper.map(userEntity.get(), UserDto.class);
-            List<ResponseOrder> orders = new ArrayList<>();
-            userDto.setOrders(orders);
+            // List<ResponseOrder> orders = new ArrayList<>();
+
+//---------------RestTemplate 방식은 FeignClient로 대체--------------------
+//
+//            // %s 에는 사용자의 ID가 들어간다. (별도의 구성파일에 지정된 주소)
+//            String orderUrl = String.format(env.getProperty("order-service.url"), userId);
+//            log.info("[orderurl] %s", orderUrl);
+//            
+//            // ParameterizedTypeReference의 제네릭은 OrderService의 getOrder()의 반환형을 지정
+//            ResponseEntity<List<ResponseOrder>> orderListResponse = restTemplate.exchange(orderUrl, HttpMethod.GET, null, 
+//            		new ParameterizedTypeReference<List<ResponseOrder>>() {});
+//            
+//            // Response로부터 body부분의 리스트를 가져 옴
+//            List<ResponseOrder> orderList = orderListResponse.getBody();
+//----------------------------------------------------------------------
+            
+            // FeignClient로 다른 서비스의 HTTP를 호출
+            List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+            
+            // 다른 서비스에서 API를 조회하고 조회 결과로부터 주문정보를 담는다.
+            userDto.setOrders(orderList);
         }else{
             throw new UsernameNotFoundException("User not found");
         }
-//        userEntity.ifPresentOrElse(userEntity1 -> {
-//
-//        }, () -> {
-//
-//        });
+        
         return userDto;
     }
 

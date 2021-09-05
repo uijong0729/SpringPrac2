@@ -56,6 +56,52 @@
 			"response": []
 		},
 		{
+			"name": "config_encrypt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "1234"
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8888/encrypt",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8888",
+					"path": [
+						"encrypt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "config_decrypt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "de6b0b2ab31998249aad28f43969b0cf5be20f00dbce66453790598af6c36471"
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8888/decrypt",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8888",
+					"path": [
+						"decrypt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "FindUsers",
 			"request": {
 				"method": "GET",
@@ -105,6 +151,65 @@
 			"response": []
 		},
 		{
+			"name": "[Refresh] UserServiceConfig",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"uijong0729@naver.com\",\r\n  \"password\":\"99999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/user-service/actuator/refresh",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"user-service",
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Refresh] Gateway Config",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\":\"uijong0729@naver.com\",\r\n  \"password\":\"99999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://desktop-c999iqc:8000/actuator/refresh",
+					"protocol": "http",
+					"host": [
+						"desktop-c999iqc"
+					],
+					"port": "8000",
+					"path": [
+						"actuator",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "CreateUsers",
 			"request": {
 				"method": "POST",
@@ -140,7 +245,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"productId\":\"catalog-001\",\r\n  \"qty\":3,\r\n  \"unitPrice\":\"1500\"\r\n}",
+					"raw": "{\r\n  \"productId\":\"catalog-112\",\r\n  \"qty\":3,\r\n  \"unitPrice\":\"1500\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -148,7 +253,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://desktop-c999iqc:8000/order-service/d7448a98-0d54-43a7-84c8-4913e5b9e324/orders",
+					"raw": "http://desktop-c999iqc:8000/order-service/b0f26387-61a2-488f-a05f-e719a993cb07/orders",
 					"protocol": "http",
 					"host": [
 						"desktop-c999iqc"
@@ -156,7 +261,7 @@
 					"port": "8000",
 					"path": [
 						"order-service",
-						"d7448a98-0d54-43a7-84c8-4913e5b9e324",
+						"b0f26387-61a2-488f-a05f-e719a993cb07",
 						"orders"
 					]
 				}
@@ -166,10 +271,20 @@
 		{
 			"name": "FindOrderByUserId",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiMGYyNjM4Ny02MWEyLTQ4OGYtYTA1Zi1lNzE5YTk5M2NiMDciLCJleHAiOjE2MzA5MzY2Nzl9.uGEcDgTITagwpUL9Rn5Y4eYK5ti_aSzRz-50kCh6tQctDiFrcy2uhEFz2xEABtHybmqGr14vNDxDCM3X98kNCg",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://desktop-c999iqc:8000/order-service/d7448a98-0d54-43a7-84c8-4913e5b9e324/orders",
+					"raw": "http://desktop-c999iqc:8000/order-service/b0f26387-61a2-488f-a05f-e719a993cb07/orders",
 					"protocol": "http",
 					"host": [
 						"desktop-c999iqc"
@@ -177,7 +292,7 @@
 					"port": "8000",
 					"path": [
 						"order-service",
-						"d7448a98-0d54-43a7-84c8-4913e5b9e324",
+						"b0f26387-61a2-488f-a05f-e719a993cb07",
 						"orders"
 					]
 				}
@@ -187,10 +302,20 @@
 		{
 			"name": "FindUserById",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmMTBmNzk3Zi0wZjk5LTQzN2QtOWJmYi01ODkwZWE2OTc0MzgiLCJleHAiOjE2MzA5MzE1Mzd9.TXsY8bE9G_E1khHLIwSG3oXFhX6cSVRFwxRcrlM5d98F8wWuSgBt00LcU-HjGG5BhwddCjKkEGiLczoEZ1QhFQ",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://desktop-c999iqc:8000/user-service/users/d7448a98-0d54-43a7-84c8-4913e5b9e324",
+					"raw": "http://desktop-c999iqc:8000/user-service/users/f10f797f-0f99-437d-9bfb-5890ea697438",
 					"protocol": "http",
 					"host": [
 						"desktop-c999iqc"
@@ -199,7 +324,7 @@
 					"path": [
 						"user-service",
 						"users",
-						"d7448a98-0d54-43a7-84c8-4913e5b9e324"
+						"f10f797f-0f99-437d-9bfb-5890ea697438"
 					]
 				}
 			},

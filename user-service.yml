@@ -12,3 +12,6 @@ token:
 
 gateway:
   ip: 127.0.0.1
+
+order-service:
+  url: http://ORDER_SERVICE/order-service/%s/orders
