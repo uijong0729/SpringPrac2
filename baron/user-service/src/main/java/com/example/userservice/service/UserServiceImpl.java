@@ -5,6 +5,8 @@ import com.example.userservice.dto.UserDto;
 import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
+
+import feign.FeignException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -95,8 +97,12 @@ public class UserServiceImpl implements UserService{
 //            List<ResponseOrder> orderList = orderListResponse.getBody();
 //----------------------------------------------------------------------
             
+            
             // FeignClient로 다른 서비스의 HTTP를 호출
+            // Error Decoder로 예외 핸들링이 적용된 상태 (로직은 FeignErrorDecoder에서 구현)
             List<ResponseOrder> orderList = orderServiceClient.getOrders(userId);
+            
+
             
             // 다른 서비스에서 API를 조회하고 조회 결과로부터 주문정보를 담는다.
             userDto.setOrders(orderList);

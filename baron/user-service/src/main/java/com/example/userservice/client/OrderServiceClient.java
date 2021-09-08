@@ -17,6 +17,12 @@ import com.example.userservice.vo.ResponseOrder;
 @FeignClient(name = "order-service")
 public interface OrderServiceClient {
 	
+	/**
+	 * GetMapping의 주소를 찾지 못하면 404에러가 발생한다. 
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("/order-service/{userId}/orders")
 	List<ResponseOrder> getOrders(@PathVariable String userId);
 }

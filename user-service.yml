@@ -15,3 +15,5 @@ gateway:
 
 order-service:
   url: http://ORDER_SERVICE/order-service/%s/orders
+  exception:
+    order_is_empty: User's orders is empty
