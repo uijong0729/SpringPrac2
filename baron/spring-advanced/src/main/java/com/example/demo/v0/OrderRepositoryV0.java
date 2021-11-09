@@ -9,12 +9,12 @@ import lombok.RequiredArgsConstructor;
 public class OrderRepositoryV0 {
 
     public void save(String itemId) {
-        // 저장 로직
+        // ���옣 濡쒖쭅
         if (itemId.equals("ex")) {
-            throw new IllegalStateException("예외");
+            throw new IllegalStateException("error");
         }
         
-        // 상품 저장에 1초가 걸린다고 가정
+        // �긽�뭹 ���옣�뿉 1珥덇� 嫄몃┛�떎怨� 媛��젙
         sleep(1000);
     }
 
