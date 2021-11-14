@@ -1,4 +1,4 @@
-package com.trace;
+package app.trace;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

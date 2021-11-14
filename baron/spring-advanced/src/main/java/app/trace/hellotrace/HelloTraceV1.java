@@ -1,10 +1,9 @@
-package com.trace.hellotrace;
+package app.trace.hellotrace;
 
 import org.springframework.stereotype.Component;
 
-import com.trace.TraceId;
-import com.trace.TraceStatus;
-
+import app.trace.TraceId;
+import app.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

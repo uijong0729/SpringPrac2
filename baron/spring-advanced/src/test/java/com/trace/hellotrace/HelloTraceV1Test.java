@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.trace.TraceStatus;
+import app.trace.TraceStatus;
+import app.trace.hellotrace.HelloTraceV1;
 
 class HelloTraceV1Test {
 
