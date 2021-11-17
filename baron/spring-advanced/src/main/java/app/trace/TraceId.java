@@ -5,7 +5,8 @@ import java.util.UUID;
 public class TraceId {
 	// 로그추적 식별자
 	private String id;
-	// 동일 트랜잭션 내 호출의 깊이 
+	// 동일 트랜잭션 내 메서드 호출의 깊이 
+	// 메서드 호출의 깊이를 표현하는 가장 단순한 방법은 첫 로그에서 사용한 level을 다음로그에 넘겨주는 것이다.
 	private int level;
 	
 	public TraceId() {
