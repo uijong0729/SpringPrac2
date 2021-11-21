@@ -12,12 +12,12 @@ public class FieldLogTrace implements LogTrace {
 	/**
 	 * traceId 를 어딘가에는 들고 있어야하기 떄문에 보관해두고 사용 동기화 이슈 발생
 	 */
-	private Optional<TraceId> traceIdHolder = Optional.empty();
+	private TraceId traceIdHolder;
 
 	@Override
 	public TraceStatus begin(String message) {
 		syncTraceId();
-		TraceId traceId = traceIdHolder.get();
+		TraceId traceId = traceIdHolder;
 		Long startTimeMs = System.currentTimeMillis();
 		log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
 		return new TraceStatus(traceId, startTimeMs, message);
@@ -42,36 +42,30 @@ public class FieldLogTrace implements LogTrace {
 			log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()),
 					status.getMessage(), resultTimeMs, e.toString());
 		}
-		
+
 		releaseTraceId();
 	}
 
-	
 	/**
-	 * 로그를 시작할 때 호출
-	 * 직전 로그의 TraceId는 파라미터로 전달하는 것이 아니라 traceIdHoler에 저장시킨다.
+	 * 로그를 시작할 때 호출 직전 로그의 TraceId는 파라미터로 전달하는 것이 아니라 traceIdHoler에 저장시킨다.
 	 */
 	private void syncTraceId() {
-		traceIdHolder.ifPresentOrElse(
-				// 이후 호출
-				traceid -> traceIdHolder.get().createNextId(),
-				// 첫 호출
-				() -> traceIdHolder = Optional.of(new TraceId())
-				
-		);
+		if (traceIdHolder == null) {
+			traceIdHolder = new TraceId();
+		} else {
+			traceIdHolder = traceIdHolder.createNextId();
+		}
 	}
-	
+
 	/**
-	 * 로그를 종료할 때 호출 
+	 * 로그를 종료할 때 호출
 	 */
 	private void releaseTraceId() {
-		traceIdHolder.ifPresentOrElse(traceId -> {
-			if (traceId.isFirstLevel()) {
-				traceIdHolder = Optional.empty();
-			} else {
-				traceId.createPreviousId();
-			}
-		}, () -> traceIdHolder = Optional.empty());
+		if (traceIdHolder.isFirstLevel()) {
+			traceIdHolder = null;
+		} else {
+			traceIdHolder.createPreviousId();
+		}
 	}
 
 	/**
