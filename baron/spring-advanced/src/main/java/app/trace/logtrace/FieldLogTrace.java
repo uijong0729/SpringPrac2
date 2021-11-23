@@ -1,7 +1,5 @@
 package app.trace.logtrace;
 
-import java.util.Optional;
-
 import app.trace.TraceId;
 import app.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +15,9 @@ public class FieldLogTrace implements LogTrace {
 	@Override
 	public TraceStatus begin(String message) {
 		syncTraceId();
-		TraceId traceId = traceIdHolder;
 		Long startTimeMs = System.currentTimeMillis();
-		log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
-		return new TraceStatus(traceId, startTimeMs, message);
+		log.info("[{}] {}{}", traceIdHolder.getId(), addSpace(START_PREFIX, traceIdHolder.getLevel()), message);
+		return new TraceStatus(traceIdHolder, startTimeMs, message);
 	}
 
 	@Override
@@ -43,7 +40,7 @@ public class FieldLogTrace implements LogTrace {
 					status.getMessage(), resultTimeMs, e.toString());
 		}
 
-		releaseTraceId();
+		this.releaseTraceId();
 	}
 
 	/**
@@ -64,19 +61,20 @@ public class FieldLogTrace implements LogTrace {
 		if (traceIdHolder.isFirstLevel()) {
 			traceIdHolder = null;
 		} else {
-			traceIdHolder.createPreviousId();
+			traceIdHolder = traceIdHolder.createPreviousId();
 		}
 	}
 
 	/**
-	 * level0 level1 |--> level2 |---|-->
+	 * level0 
+	 * level1 |--> 
+	 * level2 |---|-->
 	 * 
 	 * @param prefix
 	 * @param level
 	 * @return
 	 */
 	private Object addSpace(String prefix, int level) {
-		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < level; i++) {
 			sb.append((i == level - 1) ? "|" + prefix : "|---");
