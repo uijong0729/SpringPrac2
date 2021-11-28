@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class FieldServiceTest {
+public class ThreadLocalServiceTest {
 
-	private ThreadLocalService fieldService = new ThreadLocalService();
+	private ThreadLocalService service = new ThreadLocalService();
 	
 	/**
 	 *	동시성 문제는 지역 변수에서는 발생하지 않는다.
@@ -15,17 +15,17 @@ public class FieldServiceTest {
 	 *	(싱글톤 패턴의 객체에서 자주 보이는 문제) 
 	 */
 	@Test
-	final void field() {
+	final void threadLocal() {
 		log.info("main start");
 		Thread threadA = new Thread(() -> {
 			// runnable.run()
-			fieldService.logic("userA");
+			service.logic("userA");
 		});
 		threadA.setName("Thread-A");
 		
 		Thread threadB = new Thread(() -> {
 			// runnable.run()
-			fieldService.logic("userB");
+			service.logic("userB");
 		});
 		threadB.setName("Thread-B");
 		
@@ -41,5 +41,6 @@ public class FieldServiceTest {
 			e.printStackTrace();
 		}
 		log.info("main exit");
+		
 	}
 }
