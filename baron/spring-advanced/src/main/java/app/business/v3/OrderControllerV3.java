@@ -18,7 +18,9 @@ public class OrderControllerV3 {
     private final LogTrace trace;
     
     /**
-     * test url : http://localhost:8080/v3/request?itemId=1111
+     * test url : 
+     * http://localhost:8080/v3/request?itemId=1111
+     * http://localhost:8080/v3/request?itemId=ex
      * 
      * @param itemId
      * @return
