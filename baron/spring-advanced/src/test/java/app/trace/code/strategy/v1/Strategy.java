@@ -1,4 +1,4 @@
-package app.trace.strategy.code.v1;
+package app.trace.code.strategy.v1;
 
 public interface Strategy {
 	void call();

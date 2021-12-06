@@ -1,4 +1,4 @@
-package app.trace.strategy.code.v2;
+package app.trace.code.strategy.v1;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,20 +6,19 @@ import lombok.extern.slf4j.Slf4j;
  * 필드에 전략을 보관하는 방식
  */
 @Slf4j
-public class ContextV2 {
+public class ContextV1 {
+	private Strategy strategy;
 	
-	/**
-	 * 파라미터로 전달받는 전략패턴
-	 * 전략을 필드로 가지지 않는 대신에 항상 파라미털 호출 받는방식
-	 * 
-	 * @param strategy
-	 */
-	public void execute(Strategy strategy) {
+	public ContextV1(Strategy strategy) {
+		this.strategy = strategy;
+	}
+	
+	public void execute() {
 		long startTime = System.currentTimeMillis();
 		log.info("logic start");
 		
 		// 위임된 비즈니스 로직
-		strategy.call();
+		this.strategy.call();
 		
 		long endTime = System.currentTimeMillis();
 		log.info("logic end : " + (endTime - startTime));

@@ -1,4 +1,4 @@
-package app.trace.Template;
+package app.trace.code.template;
 
 import lombok.extern.slf4j.Slf4j;
 

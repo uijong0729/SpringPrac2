@@ -1,4 +1,4 @@
-package app.trace.Template;
+package app.trace.code.template;
 
 import org.junit.jupiter.api.Test;
 

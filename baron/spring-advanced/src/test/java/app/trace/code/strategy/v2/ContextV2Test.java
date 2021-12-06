@@ -1,8 +1,8 @@
-package app.trace.strategy.code.v2;
+package app.trace.code.strategy.v2;
 
 import org.junit.jupiter.api.Test;
 
-import app.trace.Template.AbstarctTempalte;
+import app.trace.code.template.AbstarctTempalte;
 import lombok.extern.slf4j.Slf4j;
 
 /**
