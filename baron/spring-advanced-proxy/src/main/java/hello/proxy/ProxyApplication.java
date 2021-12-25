@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Import;
 
 import hello.proxy.config.AppV1Config;
 import hello.proxy.config.AppV2Config;
+import hello.proxy.config.v1_proxy.ConcreteProxyConfig;
 import hello.proxy.config.v1_proxy.InterfaceProxyConfig;
 import hello.proxy.trace.logtrace.LogTrace;
 import hello.proxy.trace.logtrace.ThreadLocalLogTrace;
@@ -16,7 +17,8 @@ import hello.proxy.trace.logtrace.ThreadLocalLogTrace;
  *         등록할 때 사용하지만 스프링 빈을 등록할 때도 사용할 수 있다.
  */
 //@Import({ AppV2Config.class, AppV1Config.class })
-@Import(InterfaceProxyConfig.class)
+//@Import(InterfaceProxyConfig.class)
+@Import(ConcreteProxyConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.proxy.app") // 스캔 범위주의
 public class ProxyApplication {
 
