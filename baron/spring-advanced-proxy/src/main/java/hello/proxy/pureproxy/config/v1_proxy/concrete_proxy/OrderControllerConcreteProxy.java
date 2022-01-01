@@ -25,11 +25,12 @@ public class OrderControllerConcreteProxy extends OrderControllerV2{
 			status = logTrace.begin("OrderController.request()");
 			request = target.request(itemId);
 			logTrace.end(status);
+			return request;
 		} catch (Exception e) {
 			// TODO: handle exception
 			logTrace.exception(status, e);
+			throw e;
 		}
-		return request;
 	}
 
 	@Override
