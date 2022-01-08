@@ -9,6 +9,7 @@ import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import hello.proxy.common.advice.TimeAdvice;
 import hello.proxy.common.service.ServiceImpl;
@@ -45,7 +46,7 @@ public class AdvisorTest {
 		proxy.find();
 	}	
 	
-	@Test
+	//@Test
 	@DisplayName("직접 만든 포인트 컷")
 	void advisorTest2() {
 		ServiceInterface target = new ServiceImpl();
@@ -103,4 +104,30 @@ public class AdvisorTest {
 			};
 		}
 	}
+	
+	
+	@Test
+	@DisplayName("스프링이 제공하는 포인트 컷")
+	void advisorTest3() {
+		ServiceInterface target = new ServiceImpl();
+		ProxyFactory proxyFactory = new ProxyFactory(target);
+		
+		// 메서드이름 save인지를 판별하는 포인트컷 (PatternMatchUtils를 사용)
+		NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+		pointcut.setMappedName("save");
+		
+		// 메소드 이름이 save일 때만 TimeProxy를 호출하는 포인트컷을 적용
+		DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new TimeAdvice());
+		
+		// 프록시 팩토리를 사용할 때에는 Advisor가 필수이다.
+		// Advice를 매개변수로 넘겼을 경우, 포인트 컷이 항상 TRUE인 Advisor를 생성하여 동작한다.
+		proxyFactory.addAdvisor(advisor);
+		ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
+		
+		// save는 어드바이스 적용
+		proxy.save();
+		
+		// find는 어드바이스 미적용
+		proxy.find();
+	}	
 }
