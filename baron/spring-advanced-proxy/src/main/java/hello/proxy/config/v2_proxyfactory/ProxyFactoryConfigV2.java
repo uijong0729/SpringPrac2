@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 구체 클래스만 있는 클레스에 대한 프록시 적용(V2)
  *
+ * 프록시 직접 구현의 단점 : 너무 많은 설정 + 컴포넌트 스캔이 적용된 클래스에는 임의 적용불가
  */
 @Slf4j
 @Configuration
