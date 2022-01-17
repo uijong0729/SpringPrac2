@@ -76,6 +76,7 @@ public class BeanPostProcessorTest {
 	 *  - 빈을 변경/조작할 수 있는 후킹 포인트
 	 *  - 빈 객체를 프록시로 교체하는 것도 가능하다
 	 *  - 빈 후처리기 자동등록 @PostConstruct 스프링 스스로도 스프링 내부의 기능을 확장하기위해 빈 후처리기를 사용한다.
+	 *  - 컴포넌트 스캔을 사용하는 빈까지 모두 프록시를 적용할 수 있다.
 	 */
 	@Slf4j
 	static class AToBPostProcessor implements BeanPostProcessor {
