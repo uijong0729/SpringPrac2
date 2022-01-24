@@ -15,6 +15,7 @@ import hello.proxy.config.v1_proxyfactory.ProxyFactoryConfigV1;
 import hello.proxy.config.v2_proxyfactory.ProxyFactoryConfigV2;
 import hello.proxy.config.v4_postprocessor.BeanPostProcessorConfig;
 import hello.proxy.config.v5_autoproxy.AutoProxyConfig;
+import hello.proxy.config.v6_aop.AopConfig;
 import hello.trace.logtrace.LogTrace;
 import hello.trace.logtrace.ThreadLocalLogTrace;
 
@@ -28,7 +29,8 @@ import hello.trace.logtrace.ThreadLocalLogTrace;
 //@Import(ProxyFactoryConfigV1.class) // http://localhost:8080/v1/no-log   http://localhost:8080/v1/request?itemId=333
 //@Import(ProxyFactoryConfigV2.class)	//   http://localhost:8080/v2/no-log   http://localhost:8080/v2/request?itemId=333
 //@Import(BeanPostProcessorConfig.class)	//   http://localhost:8080/v2/no-log   http://localhost:8080/v2/request?itemId=333
-@Import(AutoProxyConfig.class)	//   http://localhost:8080/v2/no-log   http://localhost:8080/v2/request?itemId=333
+//@Import(AutoProxyConfig.class)	//   http://localhost:8080/v2/no-log   http://localhost:8080/v2/request?itemId=333
+@Import(AopConfig.class)	//   http://localhost:8080/v2/no-log   http://localhost:8080/v2/request?itemId=333
 @SpringBootApplication(scanBasePackages = "hello.proxy.app") // 스캔 범위주의
 public class ProxyApplication {
 
