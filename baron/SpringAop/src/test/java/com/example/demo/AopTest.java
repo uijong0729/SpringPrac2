@@ -12,13 +12,15 @@ import com.example.demo.order.OrderService;
 import com.example.demo.order.aop.AspectV1;
 import com.example.demo.order.aop.AspectV2;
 import com.example.demo.order.aop.AspectV3;
+import com.example.demo.order.aop.AspectV4Pointcut;
+import com.example.demo.order.aop.AspectV5OrderedAdvice;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
 //	@Aspect를 사용하려면 스프링 bean으로 등록해야 하지만, @Import로 스프링 빈도 등록할 수 있다.
-@Import(AspectV3.class)	
+@Import({AspectV5OrderedAdvice.LogAspect.class, AspectV5OrderedAdvice.TxAspect.class})	
 public class AopTest {
 	
 	@Autowired

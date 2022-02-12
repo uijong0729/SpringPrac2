@@ -11,25 +11,10 @@ import lombok.extern.slf4j.Slf4j;
  * 복수의 어드바이스 적용 
  *  1. doLog
  *  2. doTrasaction
- *  
- * 어드바이스는 기본적으로 순서를 보장하지 않는다.
- * 순서를 적용하고 싶으면 @Aspect 적용단위(class)로 @Order 애노테이션을 적용해야한다.
  */
 @Slf4j
 @Aspect
-public class AspectV3 {
-
-	/**
-	 * 포인트컷을 분리하는 방법
-	 * 다른 Aspect에서도 참고하려면 public으로 작성해야 한다.
-	 */
-	@Pointcut("execution(* com.example.demo.order..*(..))")
-	private void allOrder() {} 
-	
-	// 클래스 이름 패턴이 *Service
-	@Pointcut("execution(* *..*Service.*(..))")
-	private void allService() {} 
-	
+public class AspectV4Pointcut {
 	
 	/**
 	 * @param joinPoint
@@ -39,7 +24,7 @@ public class AspectV3 {
 	 * 
 	 *  - 포인트컷 시그니쳐 : allOrder()
 	 */
-	@Around("allOrder()") 
+	@Around("com.example.demo.order.aop.Pointcuts.allOrder()") 
 	public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
 		// join point 시그니처 => 메소드 정보
 		log.info("[log] {}", joinPoint.getSignature()); 
@@ -53,7 +38,7 @@ public class AspectV3 {
 	 * 
 	 *  - 포인트컷 여러개 적용 : &&(and) ||(or) !(not)
 	 */
-	@Around("allOrder() && allService()") 
+	@Around("com.example.demo.order.aop.Pointcuts.orderAndService()") 
 	public Object doTrasaction(ProceedingJoinPoint joinPoint) throws Throwable {
 		try {
 			log.info("[트랜잭션 시작] {}", joinPoint.getSignature());
