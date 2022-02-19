@@ -104,4 +104,87 @@ public class ExecutionTest {
 		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
 	}
 	
+	
+	// --------------------------------
+	// 타입 매칭
+	// --------------------------------
+	@Test
+	void typeExactMatch1() {
+		// MemberServiceImpl의 모든 메서드
+		pointcut.setExpression("execution(* com.example.demo.order.aop.member.MemberServiceImpl.*(..))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void typeExactMatch2() {
+		// MemberService 인터페이스에도 대응하는가? (부모타입, 부모타입에 있는 메서드만 대응가능)
+		pointcut.setExpression("execution(* com.example.demo.order.aop.member.MemberService.*(..))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void typeExactMatch3() throws NoSuchMethodException, SecurityException {
+		// MemberService 인터페이스에도 대응하는가? (부모타입, 부모타입에 있는 메서드만 대응가능)
+		// 포인트컷에 부모타입을 지정
+		pointcut.setExpression("execution(* com.example.demo.order.aop.member.MemberService.*(..))");
+		// 부모타입에 없는 메서드가 포인트 컷에 걸리는지 실험하기위해 부모타입에 없는 메서드의 메타정보를 취득
+		Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+		// 검증
+		Assertions.assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isFalse();
+	}
+	
+	@Test
+	void typeExactMatch4() throws NoSuchMethodException, SecurityException {
+		pointcut.setExpression("execution(* com.example.demo.order.aop.member.MemberServiceImpl.*(..))");
+		Method internalMethod = MemberServiceImpl.class.getMethod("internal", String.class);
+		Assertions.assertThat(pointcut.matches(internalMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	
+	// --------------------------------
+	// 파라미터 매칭
+	// --------------------------------
+	@Test
+	void argsMatch() throws NoSuchMethodException, SecurityException {
+		// 파라미터가 String인 타겟과 매칭
+		pointcut.setExpression("execution(* *(String))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void noArgsMatch() throws NoSuchMethodException, SecurityException {
+		// 파라미터가 없는 타겟과 매칭
+		pointcut.setExpression("execution(* *())");
+		// hello() 메서드는 파라미터로 String을 받기 때문에 false
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isFalse();
+	}
+	
+	@Test
+	void oneArgMatch() throws NoSuchMethodException, SecurityException {
+		// 정확히 하나의 파라미터 허용
+		pointcut.setExpression("execution(* *(*))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void argsMatchAll() throws NoSuchMethodException, SecurityException {
+		// 모든 파라미터 허용
+		pointcut.setExpression("execution(* *(..))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void argsMatchIf() throws NoSuchMethodException, SecurityException {
+		// String타입으로 시작하는 모든 파라미터 허용
+		pointcut.setExpression("execution(* *(String, ..))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
+	@Test
+	void argsMatchIf2() throws NoSuchMethodException, SecurityException {
+		// String타입으로 시작하면서 총 2개의 파라미터 허용
+		pointcut.setExpression("execution(* *(String, *))");
+		Assertions.assertThat(pointcut.matches(helloMethod, MemberServiceImpl.class)).isTrue();
+	}
+	
 }
