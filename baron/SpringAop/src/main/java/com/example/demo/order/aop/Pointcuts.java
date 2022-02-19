@@ -13,6 +13,9 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 public class Pointcuts {
 	/**
+	 * execution(접근제어자? 변환타입 선언타입?메서드이름(파라미터) 예외?)
+	 *  ※「?』 는 생략할 수 있다.
+	 * 
 	 * 포인트컷을 분리하는 방법
 	 * 다른 Aspect에서도 참고하려면 public으로 작성해야 한다.
 	 */
