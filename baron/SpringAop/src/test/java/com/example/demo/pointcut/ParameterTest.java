@@ -84,8 +84,11 @@ public class ParameterTest {
 		 * @param joinPoint
 		 * @param obj
 		 * 
-		 * this나 target은 대상을 직접 지정한다.
+		 * this나 target은 대상을 직접 지정한다. (*와 같은 패턴은 사용할 수 없다)
 		 * 실제 대상 구현체 class com.example.demo.order.aop.member.MemberServiceImpl
+		 * - 참고 : 일반적으로 스프링AOP를 적용하면 스프링 빈으로 등록되는 객체는 실제 대상 구현체가 아님
+		 * - 대상 하나를 정확하게 지정하기 때문에 많이 사용하진 않는다.
+		 * - 프록시 생성 전략(JDK / CGLIB)에 따라 포인트컷의 대상이 안될 수 도 있다.
 		 */
 		@Before("allmember() && this(obj)")
 		public void thisArgs(JoinPoint joinPoint, MemberService obj) {
@@ -97,8 +100,11 @@ public class ParameterTest {
 		 * @param joinPoint
 		 * @param obj
 		 * 
-		 * this나 target은 대상을 직접 지정한다.
+		 * this나 target은 대상을 직접 지정한다. (*와 같은 패턴은 사용할 수 없다)
 		 * CGLIB프록시 객체 class com.example.demo.order.aop.member.MemberServiceImpl$$EnhancerBySpringCGLIB$$cc8ced70
+		 * - 참고 : 일반적으로 스프링AOP를 적용하면 스프링 빈으로 등록되는 객체는 실제 대상 구현체가 아님
+		 * - 대상 하나를 정확하게 지정하기 때문에 많이 사용하진 않는다.
+		 * - 프록시 생성 전략(JDK / CGLIB)에 따라 포인트컷의 대상이 안될 수 도 있다.
 		 */
 		@Before("allmember() && target(obj)")
 		public void targetArgs(JoinPoint joinPoint, MemberService obj) {
