@@ -14,7 +14,10 @@ import com.example.demo.pointcut.ParameterTest.ParameterAspect;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootTest
+// 프록시 생성시 jdk동적프록시를 기본으로 사용 (인터페이스가 없으면 CGLIB사용)
+// @SpringBootTest(properties = "spring.aop.proxy-target-class=false")
+//프록시 생성시 CGLIB를 기본으로 사용
+@SpringBootTest(properties = "spring.aop.proxy-target-class=true")
 @Import(ThisTargetTest.ThisTargetAspect.class)
 public class ThisTargetTest {
 	@Autowired
@@ -37,6 +40,27 @@ public class ThisTargetTest {
 		@Around("this(com.example.demo.order.aop.member.MemberService)")
 		public Object doThisInterface(ProceedingJoinPoint joinPoint) throws Throwable {
 			log.info("[this-interface] {}", joinPoint.getSignature());
+			return joinPoint.proceed();
+		}
+		
+		// 부모타입 허용
+		@Around("target(com.example.demo.order.aop.member.MemberService)")
+		public Object doTargetInterface(ProceedingJoinPoint joinPoint) throws Throwable {
+			log.info("[target-interface] {}", joinPoint.getSignature());
+			return joinPoint.proceed();
+		}
+		
+		// 구체클래스 대상 (JDK동적프록시의 경우는 부모타입(MemberService)은 타겟외)
+		@Around("this(com.example.demo.order.aop.member.MemberServiceImpl)")
+		public Object doThis(ProceedingJoinPoint joinPoint) throws Throwable {
+			log.info("[this-Impl] {}", joinPoint.getSignature());
+			return joinPoint.proceed();
+		}
+		
+		// 구체클래스 대상
+		@Around("target(com.example.demo.order.aop.member.MemberServiceImpl)")
+		public Object doTarget(ProceedingJoinPoint joinPoint) throws Throwable {
+			log.info("[target-Impl] {}", joinPoint.getSignature());
 			return joinPoint.proceed();
 		}
 	}
