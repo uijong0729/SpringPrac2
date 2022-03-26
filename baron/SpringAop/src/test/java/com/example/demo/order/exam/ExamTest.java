@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+import com.example.demo.order.exam.aop.RetryAspect;
 import com.example.demo.order.exam.aop.TraceAspect;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
-@Import(TraceAspect.class)
+@Import({TraceAspect.class, RetryAspect.class})
 @Slf4j
 public class ExamTest {
 	@Autowired
